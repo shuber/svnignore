@@ -4,7 +4,7 @@ git style ignores with subversion
 
 This script looks for files named `.svnignore` in the current directory along with all of its nested directories and ignores the patterns found in them
 
-It can handle basic ignores, patterns (with *), recursive patterns (with **), and ignoring multiple files in the same directory
+It can handle basic ignores, patterns (with *), recursive patterns (with **), and ignoring multiple files/patterns in the same directory
 
 
 ## Installation
