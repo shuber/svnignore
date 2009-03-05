@@ -1,1 +1,55 @@
-/usr/local/bin/svnignore
+#!/usr/bin/env ruby
+
+require 'tempfile'
+
+Dir[File.join(Dir.pwd, '**', '.svnignore')].each do |file|
+  # Stores the parsed ignore patterns
+  #
+  ignores = Hash.new { |hash, key| hash[key] = [] }
+  
+  # Read the patterns from the svn ignore file
+  #
+  patterns = File.read(file).split("\n")
+  
+  patterns.each do |pattern|
+    # Figure out paths
+    #
+    path = File.join(File.dirname(file), pattern)
+    parent = File.dirname(path)
+    relative_path = (parent == Dir.pwd) ? '.' : File.join(parent.gsub(File.join(Dir.pwd, ''), ''), '')
+    
+    # Check for ** in path (recursive ignore)
+    #
+    if relative_path =~ /\*\*\//
+      relative_path.gsub!(/\*\*\/.*$/, '')
+      relative_path = '.' if relative_path.empty?
+      recursive = '-R '
+    else
+      recursive = ''
+    end
+    
+    ignores[relative_path] << { :pattern => File.basename(pattern), :recursive => recursive }
+  end
+  
+  # Ignore the patterns
+  # 
+  ignores.sort.each do |(relative_path, patterns)|
+    if patterns.length == 1
+      options = patterns.first[:recursive]
+      pattern = "'#{patterns.first[:pattern].gsub(/'/, "\\\\'")}'"
+    else
+      # Create a temporary file to store a newline separated list of files to ignore for this relative path
+      #
+      temp_file = Tempfile.new('svn-ignore-', Dir.pwd)
+      temp_file.print(patterns.map { |configuration| configuration[:pattern] }.join("\n"))
+      temp_file.flush
+      
+      options = '-F '
+      pattern = File.basename(temp_file.path)
+    end
+    
+    command = "svn propset svn:ignore #{options}#{pattern} #{relative_path}"
+    # puts command
+    system command
+  end
+end

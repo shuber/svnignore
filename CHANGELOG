@@ -2,3 +2,4 @@
   * Initial commit
   * Change file permissions
   * Add ignore logic
+  * Remove symlink to svnignore file
