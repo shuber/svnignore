@@ -1,18 +1,17 @@
 #!/usr/bin/env ruby
 
 require 'rubygems' unless respond_to?(:gem)
-require 'svnignore'
 require 'optparse'
-
-options = { :file => '.svnignore', :recursive => true }
-OptionParser.new do |opts|
-  opts.banner = 'Usage: svnignore [options]'
-  opts.on('-f', '--file', 'The file to parse ignore rules from. Default: .svnigore') { |file| options[:file] = file }
-  opts.on('--no-recursive', 'Do not recursively look up files with ignore rules.') { |recursive| options[:recursive] = false }
+begin
+  require 'svnignore'
+rescue LoadError
+  require File.join(File.dirname(File.dirname(__FILE__)), 'lib', 'svnignore')
 end
 
-path = [Dir.pwd]
-path << '**' if options[:recursive]
-path << options[:file]
+OptionParser.new do |opts|
+  opts.banner = 'Usage: svnignore [options]'
+  opts.on('-f', '--file [FILE]', String, 'The file to parse ignore rules from. Default: .svnigore') { |file| Svnignore.default_options[:file] = file }
+  opts.on('--no-recursive', 'Do not recursively look up files with ignore rules.') { |recursive| Svnignore.default_options[:recursive] = false }
+end.parse!
 
-Svnignore.ignore(Dir[File.join(*path)])
+Svnignore.ignore(Dir.pwd)

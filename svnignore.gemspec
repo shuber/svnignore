@@ -19,6 +19,9 @@ Gem::Specification.new do |s|
      "VERSION",
      "bin/svnignore",
      "lib/svnignore.rb",
+     "test/fixtures/.svnignore",
+     "test/fixtures/nested/.svnignore",
+     "test/fixtures/svnignore.txt",
      "test/svnignore_test.rb",
      "test/test_helper.rb"
   ]
@@ -28,6 +31,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{git style ignores with subversion}
   s.test_files = [
+    "test/fixtures/.svnignore",
+    "test/fixtures/nested/.svnignore",
+    "test/fixtures/svnignore.txt",
     "test/svnigore_test.rb",
     "test/test_helper.rb"
   ]
