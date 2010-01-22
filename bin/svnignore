@@ -10,7 +10,7 @@ end
 
 OptionParser.new do |opts|
   opts.banner = 'Usage: svnignore [options]'
-  opts.on('-f', '--file [FILE]', String, 'The file to parse ignore rules from. Default: .svnigore') { |file| Svnignore.default_options[:file] = file }
+  opts.on('-f', '--file [FILE]', String, 'The file to parse ignore rules from. Default: .svnignore') { |file| Svnignore.default_options[:file] = file }
   opts.on('--no-recursive', 'Do not recursively look up files with ignore rules.') { |recursive| Svnignore.default_options[:recursive] = false }
 end.parse!
 
