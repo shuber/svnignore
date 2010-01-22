@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
      "VERSION",
      "bin/svnignore",
      "lib/svnignore.rb",
+     "test/svnignore_test.rb",
      "test/test_helper.rb"
   ]
   s.homepage = %q{http://github.com/shuber/svnignore}
