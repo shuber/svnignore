@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
     "test/fixtures/.svnignore",
     "test/fixtures/nested/.svnignore",
     "test/fixtures/svnignore.txt",
-    "test/svnigore_test.rb",
+    "test/svnignore_test.rb",
     "test/test_helper.rb"
   ]
 
