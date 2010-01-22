@@ -1,21 +1,6 @@
 require 'rubygems'
 require 'rake'
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = 'svnignore'
-    gem.summary = 'git style ignores with subversion'
-    gem.description = 'git style ignores with subversion'
-    gem.email = 'shuber@huberry.com'
-    gem.homepage = 'http://github.com/shuber/svnignore'
-    gem.authors = ['Sean Huber']
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-rescue LoadError
-  puts 'Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler'
-end
-
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
@@ -36,8 +21,6 @@ rescue LoadError
   end
 end
 
-task :test => :check_dependencies
-
 task :default => :test
 
 require 'rake/rdoctask'
@@ -52,4 +35,5 @@ Rake::RDocTask.new do |rdoc|
   rdoc.title = "svnignore #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('bin/**/*.rb')
+  rdoc.rdoc_files.include('lib/**/*.rb')
 end

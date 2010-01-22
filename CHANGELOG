@@ -1,6 +1,0 @@
-2009-03-05 - Sean Huber (shuber@huberry.com)
-  * Initial commit
-  * Change file permissions
-  * Add ignore logic
-  * Remove symlink to svnignore file
-  * Update README
